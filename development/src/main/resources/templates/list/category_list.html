@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table border="1">
+	<tr>
+      <th>大カテゴリID</th>
+      <th>大カテゴリ名</th>
+	</tr>	
+	<tr th:each="category : ${categorylist}" th:object="${category}">
+	  <td th:text="*{id}"></td>
+	  <td th:text="*{category}"><a th:href ="@{/category_detail/{id}(id=*{id})}"></td>
+    </tr>
+</body>
+</html>
