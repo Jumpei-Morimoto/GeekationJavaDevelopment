@@ -1,0 +1,85 @@
+@charset "UTF-8";
+/*　login.html */
+.login_top{
+	text-align: center;
+	margin-top: 15rem;
+	margin-bottom: 5rem;
+}
+
+.login_list{
+	text-align: center;
+}
+
+.login_form{
+	color:black;
+	margin:2rem;
+	position: relative;
+	height: 50px;
+	
+}
+
+.login_form input{
+	border-radius: 10px;
+	color:black;
+	width:300px;
+	height: 3rem;
+	
+}
+
+.login_form p{
+	background-color: white;
+	position:absolute;
+	top: -0.5rem;
+    left: 50rem;
+    
+}
+/*　login.html */
+/*　top.html */
+.top_list{
+	font-size: 2rem;
+}
+.top_list div{
+	margin: 2rem;
+}
+.top_list a{
+	margin: 4rem;
+	text-decoration:none;
+	color:black;
+}
+/*　top.html */
+/* admin_list*/
+.adminContents{
+	margin:4rem;
+}
+.userDetailLink{
+	text-decoration: none;
+	color:black;
+}
+/* admin_list*/
+
+/* detail*/
+.link{
+	display:flex;
+	flex-direction: column;	
+	text-decoration: none;
+	color:black;
+	margin-top:1rem;
+}
+.link a{
+	display:inline-block;
+	width:6rem;
+	text-decoration: none;
+	color:black;
+	margin:0.5rem;
+	font-size:1.5rem;
+}
+/* detail*/
+/* user_detail*/
+.detailContents{
+	margin:4rem;
+}
+
+/* user_edit*/
+.usereditContents{
+	margin:4rem;
+}

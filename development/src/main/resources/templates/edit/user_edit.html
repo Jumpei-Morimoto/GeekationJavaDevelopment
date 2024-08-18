@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>管理者編集</title>
+</head>
+<body>
+	<div th:if="${validationError}" th:each="error : ${validationError}">
+      <label class="text-danger" th:text="${error}"></label>
+    </div> 
+<div class="usereditContents">    
+<h1>お問い合わせ編集</h1>	
+<form th:action="@{/users/update/{id}(id=*{id})}" th:object="${usersUpdate}" th:method="post">
+	<input type="hidden" th:field="*{id}" />
+  <table  border="1">
+	   <input type="hidden" th:field="*{id}" />
+     <tr>
+       <th>所属店舗名</th>
+         <td>
+		   <select name="storeName">
+             <option th:each="store : ${storeList2}" th:value="${store.id}" th:text="${store.storeName}"></option>
+           </select>        
+         </td>
+      <tr>
+        <th>姓</th>
+        <td>
+			<input type="text" th:field="*{lastName}">
+        </td>
+      </tr>
+      <tr>
+        <th>名</th>
+        <td>
+			<input type="text" th:field="*{firstName}">
+		</td>
+      </tr>
+      <tr>
+        <th>メールアドレス</th>
+        <td>
+			<input type="text" th:field="*{email}">
+		</td>
+      </tr>
+      <tr>
+        <th>役職</th>
+        <td>
+		  <select name="positionsType">
+            <option th:each="positions : ${positionsList2}" th:value="${positions.id}" th:text="${positions.positionsName}"></option>
+          </select>
+        </td>
+      </tr> 
+        <tr>
+          <th>権限</th>
+          <td>
+		    <select name="roleType">
+              <option th:each="roles : ${rolesList2}" th:value="${roles.id}" th:text="${roles.role}"></option>
+            </select>
+          </td>
+        </tr>   
+      <tr>
+        <th>電話番号</th>
+        <td>
+			<input type="text" th:field="*{phone}">
+		</td>       
+      </tr>
+      <tr>
+		<th>パスワード</th>
+		  <td>
+			<input type="password" th:field="*{password}">
+		  </td>		  
+	  </tr>   
+  </table>
+  <input type="submit" value="保存">
+</form>
+  <div class="link">
+    <a class="back"  href="#" onclick="history.back(-1)" return false;>戻る</a>
+  </div>  
+</div>
+</body>
+</html>
