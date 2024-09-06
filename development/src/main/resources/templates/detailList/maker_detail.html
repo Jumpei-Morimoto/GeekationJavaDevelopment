@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>メーカー詳細</title>
+</head>
+<body>
+<div class="detailContents">	
+  <h1>メーカー詳細</h1>
+<table th:object="${makerData}" border="1">
+      <tr>
+        <td>管理者ID</td>
+        <td th:text="*{id}"></td>
+      </tr>
+      <tr>
+        <td>メーカー名</td>
+        <td th:text="*{makerName}"></td>
+      </tr>
+      <tr>
+        <td>作成日時</td>
+        <td th:text="*{createdAt}"></td>
+      </tr>
+      <tr>
+        <td>更新日時</td>
+        <td th:text="*{updatedAt}"></td>
+      </tr>
+  </table>   
+  <div class="link">
+    <a class="editLink" th:href="@{/edit/maker_edit/{id}/edit(id=*{id})}">編集</a>
+    <a class="deleteLink" th:href="@{/maker/{id}/delete(id=*{id})}">削除</a>
+    <a class="back" href="/maker_list">戻る</a>
+  </div>
+</div>
+</body>
+</html>

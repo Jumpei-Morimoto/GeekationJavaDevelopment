@@ -8,4 +8,5 @@ import com.example.demo.entity.Users_reference;
 @Repository
 public interface UsersReferenceRepository extends JpaRepository<Users_reference, Long>{
 
+	
 }

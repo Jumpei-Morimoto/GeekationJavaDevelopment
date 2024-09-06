@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>メーカー新規登録</title>
+</head>
+<body>
+<div class="makerContents">	
+  <h1>メーカー新規登録</h1>
+    <form th:action="@{/maker_registration2}" th:object="${makerRegistrationForm}" method="post">
+	  <table border="1">
+		<tr>
+			<th>メーカー名</th>
+			<td>
+				<input type="text" th:field="*{makerName}">
+				<span th:if="${#fields.hasErrors('makerName')}" th:errors="*{makerName}" style="color: red"></span>
+			</td>
+		</tr>
+	  </table>
+	<input type="submit" value="送信">
+    </form>
+    <div class="link">
+        <a class="back"  href="#" onclick="history.back(-1)" return false;>戻る</a>
+    </div>
+</div>    
+</body>
+</html>

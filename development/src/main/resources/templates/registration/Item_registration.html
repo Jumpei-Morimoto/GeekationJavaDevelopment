@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>商品新規作成</title>
+</head>
+<body>
+<div class="itemContents">	
+  <h1>商品新規登録</h1>
+  <form method="POST" enctype="multipart/form-data" th:action="@{/image_upload}" th:object="${itemRegistrationForm}">
+        <input type="file" id="file" th:field="*{file}"/>
+        <table border="1">
+		<tr>
+			<th>商品名</th>
+			<td>
+				<input type="text" th:field="*{itemName}">
+				<span th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>内容</th>
+			<td>
+				<input type="text" th:field="*{itemBody}">
+				<span th:if="${#fields.hasErrors('itemBody')}" th:errors="*{itemBody}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>メーカー</th>
+			<td>
+				<select th:field="*{makerId}">
+                      <option value="00"></option>
+                      <option th:each="maker : ${makerList}" th:value="${maker.id}" th:text="${maker.makerName}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('makerId')}" th:errors="*{makerId}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>仕入れ原価</th>
+			<td>
+				<input type="text" th:field="*{purchase}">
+				<span th:if="${#fields.hasErrors('purchase')}" th:errors="*{purchase}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>メーカー希望小売価格</th>
+			<td>
+				<input type="text" th:field="*{listPrice}">
+				<span th:if="${#fields.hasErrors('listPrice')}" th:errors="*{listPrice}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>大カテゴリ</th>
+			<td>
+				<select th:field="*{categoryId}">
+                      <option value=""></option>
+                      <option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.category}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+		    <th>中カテゴリ</th>
+		    <td>
+				<select th:field="*{subCategoryId}">
+                      <option value=""></option>
+                      <option th:each="subCategory : ${subCategoryList}" th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('subCategoryId')}" th:errors="*{subCategoryId}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+		    <th>小カテゴリ</th>
+		    <td>
+				<select th:field="*{subSubCategoryId}">
+                      <option value=""></option>
+                      <option th:each="subSubCategory : ${subSubCategoryList}" th:value="${subSubCategory.id}" th:text="${subSubCategory.subSubCategory}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('subSubCategoryId')}" th:errors="*{subSubCategoryId}" style="color: red"></span>
+			</td>
+		</tr>
+	  </table>
+	<input type="submit" value="送信">
+    </form>
+
+    <p th:if="${message}" th:text="${message}"></p>
+
+    <div th:if="${imagePath}">
+        <h3>アップロードされた画像</h3>
+        <img th:src="${imagePath}" alt="Uploaded Image" />
+    </div>
+   <!-- <form th:action="@{/item_registration2}" th:object="${itemRegistrationForm}" method="post">
+	  <table border="1">
+		<tr>
+			<th>商品ID</th>
+			<td>
+				<input type="text" th:field="*{id}">
+				<span th:if="${#fields.hasErrors('itemName')}" th:errors="*{makerName}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>商品名</th>
+			<td>
+				<input type="text" th:field="*{makerName}">
+				<span th:if="${#fields.hasErrors('makerName')}" th:errors="*{makerName}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>内容</th>
+			<td>
+				<input type="text" th:field="*{body}">
+				<span th:if="${#fields.hasErrors('makerName')}" th:errors="*{makerName}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>メーカーID※セレクトボックス</th>
+			<td>
+				<input type="text" th:field="*{makerID}">
+				<span th:if="${#fields.hasErrors('makerName')}" th:errors="*{makerName}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>仕入れ原価</th>
+			<td>
+				<input type="text" th:field="*{purchase}">
+				<span th:if="${#fields.hasErrors('makerName')}" th:errors="*{makerName}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>メーカー希望小売価格</th>
+			<td>
+				<input type="text" th:field="*{listPrice}">
+				<span th:if="${#fields.hasErrors('listPrice')}" th:errors="*{listPrice}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>大カテゴリ</th>
+			<td>
+				<select name="category">
+                      <option value="00"></option>
+                      <option th:each="store : ${categoryList}" th:value="${category.id}" th:text="${category.category}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+		    <th>中カテゴリ</th>
+		    <td>
+				<select name="subCategory">
+                      <option value="00"></option>
+                      <option th:each="store : ${categoryDate}" th:value="${Sub_Category.id}" th:text="${sub_category.subCategory}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('subCategory')}" th:errors="*{subCategory}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+		    <th>小カテゴリ</th>
+		    <td>
+				<select name="storeName">
+                      <option value="00"></option>
+                      <option th:each="store : ${subCategoryDate}" th:value="${Sub_SubCategory.id}" th:text="${subSubCategory}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('subSubCategory')}" th:errors="*{subSubCategory}" style="color: red"></span>
+			</td>
+		</tr>
+	  </table>
+	<input type="submit" value="送信">
+    </form>-->
+    <div class="link">
+        <a class="back"  href="#" onclick="history.back(-1)" return false;>戻る</a>
+    </div>
+</div>
+</body>
+</html>

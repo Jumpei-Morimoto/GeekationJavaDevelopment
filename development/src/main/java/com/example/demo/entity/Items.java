@@ -21,7 +21,7 @@ public class Items {
 	private Long id;
 	
 	@Column(name = "item_name",nullable = false)
-	private String makerName;
+	private String itemName;
 	
 	@Column(name = "item_body",nullable = false)
 	private String itemBody;

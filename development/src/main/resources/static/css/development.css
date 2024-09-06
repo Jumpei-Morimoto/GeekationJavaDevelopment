@@ -55,7 +55,6 @@
 	text-decoration: none;
 	color:black;
 }
-/* admin_list*/
 
 /* detail*/
 .link{
@@ -73,13 +72,67 @@
 	margin:0.5rem;
 	font-size:1.5rem;
 }
-/* detail*/
 /* user_detail*/
 .detailContents{
 	margin:4rem;
 }
 
-/* user_edit*/
-.usereditContents{
+/* maker_list*/
+.makerContents{
+	margin:4rem;
+}
+
+.makerEditContents{
+	margin:4rem;
+}
+.makerDetailLink{
+	text-decoration: none;
+	color:black;
+}
+/* category_list*/
+.categoryContents{
+	margin:4rem;
+}
+
+.categoryDetailLink{
+	text-decoration: none;
+	color:black;
+}
+
+/* store_list*/
+.storeContents{
+	margin:4rem;
+}
+.userEditContents{
+	margin:4rem;
+}
+
+.storeDetailLink{
+	text-decoration: none;
+	color:black;
+}
+/* category_detail*/
+.subCategoryDetailLink{
+	text-decoration: none;
+	color:black;
+}
+/*ページネーション*/
+.page li{
+  list-style:none;
+}
+/*商品検索*/
+.search{
+	display:flex;	
+}
+
+.search form{
+	display:inline-block;
+}
+
+.search div{
+	margin:2rem;
+}
+
+.itemContents{
 	margin:4rem;
 }

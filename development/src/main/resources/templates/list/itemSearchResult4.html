@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>検索結果</title>
+</head>
+<body>
+<div class="itemContents">
+  <h1>検索結果</h1>
+  <table border="1">
+    <tr>
+      <th>商品ID</th>
+      <th>商品名</th>
+      <th>発注数</th>
+    </tr>	
+    <tr th:each="items : ${itemSearchResult4}" th:object="${items}">
+	  <td th:text="*{id}"></td>
+	  <td><a class="itemDetailLink" th:href ="@{/detailList/item_detail/{id}(id=*{id})}"><span  th:text="*{itemName}"></span></a></td>
+        <td>
+		<form th:action="@{/item_order}" th:object="${itemOrderForm}" method="post">
+          <input type="hidden" th:value="${items.id}" name="item_id"> 
+	      <input type="hidden" th:value="${items.purchase}" name="purchase"> 
+          <select name="ordering_quantity">
+	        <option>0</option>
+		    <option>1</option>
+	        <option>2</option>
+		    <option>3</option>
+		    <option>4</option>
+		    <option>5</option>
+          </select>
+          <input type="submit" value="発注">
+        </form>
+        </td>  
+      </tr>
+  </table>
+  <div class="link">
+    <a class="back"  href="#" onclick="history.back(-1)" return false;>戻る</a>
+  </div>
+</div>
+</body>
+</html>

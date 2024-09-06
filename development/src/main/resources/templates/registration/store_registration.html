@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>店舗新規作成</title>
+</head>
+<body>
+<div class="storeContents">	
+  <h1>店舗新規登録</h1>
+    <form th:action="@{/store_registration}" th:object="${storeRegistrationForm}" method="post">
+	  <table border="1">
+		<tr>
+			<th>店舗名</th>
+			<td>
+				<input type="text" th:field="*{storeName}">
+				<span th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>住所</th>
+			<td>
+				<input type="text" th:field="*{address}">
+				<span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color: red"></span>
+			</td>
+		</tr>
+	  </table>
+	<input type="submit" value="送信">
+    </form>
+    <div class="link">
+        <a class="back"  href="#" onclick="history.back(-1)" return false;>戻る</a>
+    </div>
+</div>    
+
+</body>
+</html>

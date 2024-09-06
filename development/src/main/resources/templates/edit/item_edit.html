@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>商品情報編集</title>
+</head>
+<body>
+<div th:if="${validationError}" th:each="error : ${validationError}">
+    <label class="text-danger" th:text="${error}"></label>
+</div> 
+<div class="makerEditContents">
+<h1>商品情報編集</h1>	
+<div><img th:src="@{|/img/*{itemUpdate.itemImage}|}"></div>
+<form th:action="@{/item/update/{id}(id=*{id})}" th:object="${itemUpdate}" th:method="post" enctype="multipart/form-data">
+  <div>
+        <label for="image">画像を変更:</label>
+        <input type="file" id="image" name="imageFile" />
+  </div>
+  <table  border="1">
+      <tr>  
+        <th>商品名</th>
+        <td>
+			<input type="text" th:field="*{itemName}">
+        </td>
+      </tr>
+      <tr>  
+        <th>内容</th>
+        <td>
+			<input type="text" th:field="*{itemBody}">
+        </td>
+      </tr>
+      <tr>
+	    <th>メーカー</th>
+		<td>
+			<select th:field="*{makerId}">
+                <option value="00"></option>
+                <option th:each="maker : ${makerList}" th:value="${maker.id}" th:text="${maker.makerName}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('makerId')}" th:errors="*{makerId}" style="color: red"></span>
+	    </td>
+	  </tr>
+		<tr>
+			<th>仕入れ原価</th>
+			<td>
+				<input type="text" th:field="*{purchase}">
+				<span th:if="${#fields.hasErrors('purchase')}" th:errors="*{purchase}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>メーカー希望小売価格</th>
+			<td>
+				<input type="text" th:field="*{listPrice}">
+				<span th:if="${#fields.hasErrors('listPrice')}" th:errors="*{listPrice}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+          <th>店舗毎販売価格</th>
+          <td>
+			  <input type="text"  th:field="*{price}">
+		  </td>
+      </tr>
+		<tr>
+			<th>大カテゴリ</th>
+			<td>
+				<select th:field="*{categoryId}">
+                      <option value=""></option>
+                      <option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.category}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+		    <th>中カテゴリ</th>
+		    <td>
+				<select th:field="*{subCategoryId}">
+                      <option value=""></option>
+                      <option th:each="subCategory : ${subCategoryList}" th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('subCategoryId')}" th:errors="*{subCategoryId}" style="color: red"></span>
+			</td>
+		</tr>
+		<tr>
+		    <th>小カテゴリ</th>
+		    <td>
+				<select th:field="*{subSubCategoryId}">
+                      <option value=""></option>
+                      <option th:each="subSubCategory : ${subSubCategoryList}" th:value="${subSubCategory.id}" th:text="${subSubCategory.subSubCategory}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('subSubCategoryId')}" th:errors="*{subSubCategoryId}" style="color: red"></span>
+			</td>
+		</tr>
+  </table>
+  <input type="submit" value="保存">
+</form>
+  <div class="link">
+    <a class="back"  href="#" onclick="history.back(-1)" return false;>戻る</a>
+  </div>  
+</div>
+</body>
+</html>
