@@ -24,7 +24,6 @@ public class Store implements Serializable{
 	@Column(name = "store_name",nullable = false)
 	private String storeName;
 	
-	
 	@Column(name = "address",nullable = false)
 	private String address;
 	

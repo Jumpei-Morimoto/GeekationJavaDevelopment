@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>発注履歴</title>
+</head>
+<body>
+<div class="makerContents">	
+  <table border="1">
+	<tr>
+      <th>発注ID</th>
+      <th>発注日</th>
+      <th>店舗名</th>
+	</tr>	
+	<tr th:each="orders : ${orderlist}" th:object="${orders}">
+	  <td th:text="*{id}"></td>
+	  <td th:text="*{createdAt}"></td>
+	  <td><a class="orderDetailLink" th:href ="@{/detailList/order_detail/{id}(id=*{id})}"><span  th:text="*{store.StoreName}"></span></a></td>
+    </tr>
+  </table>
+  <div class="link">
+    <a class="back" href="/top">戻る</a>
+  </div>
+</div> 
+</body>
+</html>

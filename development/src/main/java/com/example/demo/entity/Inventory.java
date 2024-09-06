@@ -17,6 +17,9 @@ public class Inventory {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+	
 	@Column(name = "store_id")
 	private Long storeId;
 	
@@ -24,7 +27,7 @@ public class Inventory {
 	private Long itemId;
 	
 	@Column(name = "quantity",nullable = false)
-	private String Quantity;
+	private Long  quantity;
 	
 	@Column(name = "Price",nullable = false)
 	private Long price;
@@ -34,4 +37,6 @@ public class Inventory {
 	
 	@Column(name = "updated_at")
 	private Date updatedAt;
+	
+	
 }

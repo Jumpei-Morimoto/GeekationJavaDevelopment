@@ -25,5 +25,9 @@ public class AdminListService {
 	public Users findById(long id) {
 		return usersRepository.findById(id).get();
 	}
+
+	public Long findByEmail(String name) {
+		return usersRepository.findByEmail(name).getId();
+	}
 	
 }

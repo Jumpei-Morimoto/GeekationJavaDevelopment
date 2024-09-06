@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>メーカー編集</title>
+</head>
+<body>
+<div th:if="${validationError}" th:each="error : ${validationError}">
+    <label class="text-danger" th:text="${error}"></label>
+</div> 
+<div class="makerEditContents">    
+<h1>メーカー編集</h1>	
+<form th:action="@{/maker/update/{id}(id=*{id})}" th:object="${makerUpdate}" th:method="post">
+  <table  border="1">
+      <tr>  
+        <th>メーカー名</th>
+        <td>
+			<input type="text" th:field="*{makerName}">
+        </td>
+      </tr>
+  </table>
+  <input type="submit" value="保存">
+</form>
+  <div class="link">
+    <a class="back"  href="#" onclick="history.back(-1)" return false;>戻る</a>
+  </div>  
+</div>
+</body>
+</html>

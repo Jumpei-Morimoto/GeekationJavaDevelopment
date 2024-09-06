@@ -23,7 +23,7 @@ public class Sub_Category {
 	@Column(name = "sub_category",nullable = false)
 	private String subCategory;
 	
-	@Column(name = "cartegory",nullable = false)
+	@Column(name = "category_id",nullable = false)
 	private Long categoryId;
 	
 	@Column(name = "created_at")

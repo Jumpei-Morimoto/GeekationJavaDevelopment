@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Maker;
 
 @Repository
-
 public interface MakerRepository extends JpaRepository<Maker, Long>{
 
 }

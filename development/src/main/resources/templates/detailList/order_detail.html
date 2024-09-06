@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>注文履歴詳細</title>
+</head>
+<body>
+<div class="detailContents">	
+  <h1>注文履歴詳細</h1>
+<table th:object="${ordersData}" border="1">
+      <tr>
+        <td>発注履歴ID</td>
+        <td th:text="*{id}"></td>
+      </tr>
+     <tr>
+        <td>管理者　姓</td>
+        <td th:text="*{users.lastName}"></td>
+      </tr>
+     <tr>
+        <td>管理者　名</td>
+        <td th:text="*{users.firstName}"></td>
+      </tr>
+     <tr>
+        <td>商品名</td>
+        <td th:text="*{items.itemName}"></td>
+      </tr>
+      <tr>
+        <td>仕入れ原価</td>
+        <td th:text="*{purchase}"></td>
+      </tr>
+     <tr>
+        <td>店舗名</td>
+        <td th:text="*{store.storeName}"></td>
+      </tr>
+      <tr>
+        <td>発注数</td>
+        <td th:text="*{orderingQuantity}"></td>
+      </tr>
+      <tr>
+        <td>合計金額</td>
+        <td th:text="*{total}"></td>
+      </tr>
+      <tr>
+        <td>作成日時</td>
+        <td th:text="*{createdAt}"></td>
+      </tr>
+  </table>   
+  <div class="link">
+    <a class="back" href="/order_list">戻る</a>
+  </div>
+</div>
+</body>
+</html>

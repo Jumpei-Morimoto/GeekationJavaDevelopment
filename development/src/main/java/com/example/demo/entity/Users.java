@@ -36,11 +36,7 @@ public class Users {
 	
 	@Column(name = "position_id",nullable = false)
 	private Long positionId;
-	/*
-	@ManyToOne
-    @JoinColumn(name="id")
-    private Users usersPosition;
-	*/
+
 	@Column(name = "role_id",nullable = false)
 	private Long roleId;
 	

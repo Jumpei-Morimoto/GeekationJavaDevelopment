@@ -1,10 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html　xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>商品一覧</title>
 </head>
 <body>
+<div class="itemContents">
+	<h1>商品一覧</h1>
+	<div class="search">
+	  <div>
+		<p>商品名検索</p>
+        <form type="search" action="/item_search" method="get" th:object="${itemSerchForm}">
+	      <input type="text" th:field="*{itemName}" value="" placeholder="商品名"/>
+	      <button>検索</button>
+	    </form>
+	  </div>
+	  <div>
+	    <p>大カテゴリ検索</p>
+	    <form type="search" action="/category_search" method="get" th:object="${itemSerchForm}">
+	      <select name="category">
+             <option value="0"></option>
+             <option th:each="categoryList : ${categoryList}" th:value="${categoryList.id}" th:text="${categoryList.category}"></option>
+          </select>
+          <button>検索</button>
+	    </form>
+	  </div> 
+	  <div> 
+	    <p>中カテゴリ検索</p>
+	    <form type="search" action="/subCategory_search" method="get" th:object="${itemSerchForm}">
+          <select name="subCategory">
+             <option value="0"></option>
+             <option th:each="subCategoryList : ${subCategoryList}" th:value="${subCategoryList.id}" th:text="${subCategoryList.subCategory}"></option>
+          </select>
+          <button>検索</button>
+	    </form>
+	  </div>  
+	  <div>  
+	    <p>小カテゴリ検索</p>
+        <form type="search" action="/subSubCategory_search" method="get" th:object="${itemSerchForm}">
+          <select name="subSubCategory">
+             <option value="0"></option>
+             <option th:each="subSubCategoryList : ${subCategoryList}" th:value="${subSubCategoryList.id}" th:text="${subSubCategoryList.subCategory}"></option>
+          </select>
+          <button>検索</button>
+	    </form>
+	  </div> 
+	</div>
+  <table border="1">
+	<tr>
+      <th>商品ID</th>
+      <th>商品名</th>
+      <th>発注数</th>
+      <!--<th>店舗販売価格</th>-->
+	</tr>	
 
+	<tr th:each="items : ${itemslist}" th:object="${items}">
+	  <td th:text="*{id}"></td>
+	  <td><a class="itemDetailLink" th:href ="@{/detailList/item_detail/{id}(id=*{id})}"><span  th:text="*{itemName}"></span></a></td>
+	  <td>
+	    <form th:action="@{/item_order}" th:object="${itemOrderForm}" method="post">	
+	     <input type="hidden" th:value="${items.id}" name="item_id"> 
+	     <input type="hidden" th:value="${items.purchase}" name="purchase"> 
+         <select name="ordering_quantity">
+	       <option>0</option>
+		   <option>1</option>
+	       <option>2</option>
+		   <option>3</option>
+		   <option>4</option>
+		   <option>5</option>
+         </select>
+         <input type="submit" value="発注">
+       </form>
+      </td>  
+    </tr>     
+  </table>
+  <div class="link">
+    <a class="editLink" href="/registration/item_registration">新規作成</a>
+    <a class="back" href="/top">戻る</a>
+  </div>
+  <div>
+  <ul class="page">
+    <li style="display:inline;">
+      <span th:if="${pagelist.first}">&lt;&lt;前</span>
+      <a
+        th:if="${!pagelist.first}"
+        th:href="@{/item_list(page = ${pagelist.number} - 1)}"
+      >
+        &lt;&lt;前
+      </a>
+    </li>
+    <li
+      th:each="i : ${#numbers.sequence(0, pagelist.totalPages - 1)}"
+      style="display:inline; margin-left:10px;"
+    >
+      <span th:if="${i} == ${pagelist.number}" th:text="${i + 1}">1</span>
+      <a
+        th:if="${i} != ${pagelist.number}"
+        th:href="@{/item_list(page = ${i})}"
+      >
+        <span th:text="${i+1}">1</span>
+      </a>
+    </li>
+    <li style="display:inline; margin-left:10px;">
+      <span th:if="${pagelist.last}">次&gt;&gt;</span>
+      <a
+        th:if="${!pagelist.last}"
+        th:href="@{/item_list(page = (${pagelist.number} + 1))}"
+      >
+        次&gt;&gt;
+      </a>
+    </li>
+  </ul>
+</div>
+</div> 
 </body>
 </html>

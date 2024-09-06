@@ -8,4 +8,6 @@ import com.example.demo.entity.Sub_Category;
 @Repository
 public interface SubCategoryRepository extends JpaRepository<Sub_Category, Long>{
 
+
+
 }

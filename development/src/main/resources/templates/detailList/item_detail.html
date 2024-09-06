@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html　xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>商品詳細</title>
+</head>
+<body>
+<div class="detailContents">	
+  <h1>商品詳細</h1>
+  <div><img th:src="@{|/img/*{itemData.itemImage}|}"></div>
+  <table  border="1">
+      <tr>
+        <td>商品ID</td>
+        <td th:text="*{itemData.id}"></td>
+      </tr>
+      <tr>
+        <td>商品名</td>
+        <td th:text="*{itemData.itemName}"></td>
+      </tr>
+      <tr>
+        <td>内容</td>
+        <td th:text="*{itemData.itemBody}"></td>
+      </tr>
+     <tr>
+        <td>メーカー</td>
+        <td th:text="*{itemData.itemMakers.makerName}"></td>
+      </tr>
+      <tr>
+        <td>仕入れ原価</td>
+        <td th:text="*{itemData.purchase}"></td>
+      </tr>
+      <tr>
+        <td>メーカー希望小売価格</td>
+        <td th:text="*{itemData.listPrice}"></td>
+      </tr>
+      <tr　th:if="${inventoryData.isPresent() and inventoryData.get().price != null and !#strings.isEmpty(inventoryData.get().price)}">
+          <td>店舗毎販売価格</td>
+          <td th:text="${inventoryData.get().price}"></td>
+      </tr>
+      <tr>
+        <td>大カテゴリ</td>
+        <td th:text="*{itemData.itemCategories.category}"></td>
+      </tr>
+      <tr>
+        <td>中カテゴリ</td>
+        <td th:text="*{itemData.itemSubCategories.subCategory}"></td>
+      </tr>
+      <tr>
+        <td>小カテゴリ</td>
+        <td th:text="*{itemData.itemSubSubCategories.subSubCategory}"></td>
+      </tr>
+  </table>   
+  <div class="link">
+    <a class="editLink" th:href="@{/edit/item_edit/{id}/edit(id=*{id})}">編集</a>
+    <a class="deleteLink" th:href="@{/item/{id}/delete(id=*{id})}">削除</a>
+    <a class="back"  href="#" onclick="history.back(-1)" return false;>戻る</a>
+  </div>
+</div>
+</body>
+</html>

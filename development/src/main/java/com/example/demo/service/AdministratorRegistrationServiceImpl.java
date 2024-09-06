@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Users;
@@ -16,6 +17,9 @@ public class AdministratorRegistrationServiceImpl implements AdministratorRegist
 	
 	@Autowired
     private StoreRepository storeRepository;
+	
+	@Autowired 
+    private PasswordEncoder passwordEncoder;
   
 	@Override
 	public void saveAdmin(AdministratorRegistrationForm administratorRegistrationForm) {
@@ -32,9 +36,7 @@ public class AdministratorRegistrationServiceImpl implements AdministratorRegist
 		users.setPositionId(positionID);
 		users.setRoleId(roleID);
 		users.setPhone(administratorRegistrationForm.getPhone());
-		users.setPassword(administratorRegistrationForm.getPassword());
-
-      
+		users.setPassword(passwordEncoder.encode(administratorRegistrationForm.getPassword()));   
       usersRepository.save(users);
 
 	}

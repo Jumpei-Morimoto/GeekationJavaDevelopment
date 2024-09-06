@@ -2,10 +2,12 @@
 <html  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>管理者新規登録</title>
 </head>
 <body>
-<h1>管理者新規登録</h1>
+<div class="adminContents">	
+  <h1>管理者新規登録</h1>
     <form th:action="@{/administrator_registration2}" th:object="${administratorRegistrationForm}" method="post">
 	  <table border="1">
 		<tr>
@@ -74,7 +76,11 @@
 			</td>
 		</tr>
 	  </table>
-	<input type="submit" value="送信">
+	    <input type="submit" value="送信">
     </form>
+    	<div class="link">
+		    <a class="back"  href="#" onclick="history.back(-1)" return false;>戻る</a>
+        </div>
+</div>        
 </body>
 </html>

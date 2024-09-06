@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <link th:href="@{/css/development.css}" rel="stylesheet">
@@ -10,7 +10,7 @@
       <label class="text-danger" th:text="${error}"></label>
     </div> 
 <div class="usereditContents">    
-<h1>お問い合わせ編集</h1>	
+<h1>管理者編集</h1>	
 <form th:action="@{/users/update/{id}(id=*{id})}" th:object="${usersUpdate}" th:method="post">
 	<input type="hidden" th:field="*{id}" />
   <table  border="1">
