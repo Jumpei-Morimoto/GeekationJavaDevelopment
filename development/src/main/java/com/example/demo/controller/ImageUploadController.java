@@ -56,54 +56,50 @@ public class ImageUploadController {
     }
 	
 	@PostMapping("/image_upload")
-    public String uploadFile(@Valid ItemRegistrationForm itemRegistrationForm, BindingResult result, Model model) {
+    public String uploadFile(@Valid ItemRegistrationForm itemRegistrationForm, BindingResult result, Model model) throws IOException {
         
-		 MultipartFile file = itemRegistrationForm.getFile();
-	        if (file.isEmpty()) {
-	            model.addAttribute("message", "ファイルを選択してください");
-	            return "/registration/item_registration";
-	        }
-        try {
+		if (result.hasErrors()) {
+	        return "/registration/item_registration";
+	    }
+		
+		MultipartFile file = itemRegistrationForm.getFile();
+	    if (file.isEmpty()) {
+	        return "/registration/item_registration";
+	    }
           
-            Path filePath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
+        Path filePath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
 
            
-            File directory = new File(UPLOAD_DIRECTORY);
-            if (!directory.exists()) {
+        File directory = new File(UPLOAD_DIRECTORY);
+        if (!directory.exists()) {
                 directory.mkdirs();
-            }
-
-          
-            file.transferTo(filePath.toFile());
-            
-            Items items = new Items();
-            
-    		Long makerId =  Long.parseLong(itemRegistrationForm.getMakerId());
-    		Long purchase =  Long.parseLong(itemRegistrationForm.getPurchase());
-    		Long listPrice =  Long.parseLong(itemRegistrationForm.getListPrice());
-    		Long categoryId =  Long.parseLong(itemRegistrationForm.getCategoryId());
-    		Long subCategoryId =  Long.parseLong(itemRegistrationForm.getSubCategoryId());
-    		Long subSubCategoryId =  Long.parseLong(itemRegistrationForm.getSubSubCategoryId());
-            
-            
-            items.setItemName(itemRegistrationForm.getItemName());
-            items.setItemBody(itemRegistrationForm.getItemBody());
-            items.setMakerId(makerId);
-            items.setPurchase(purchase);
-            items.setListPrice(listPrice);
-            items.setCategoryId(categoryId);
-            items.setSubCategoryId(subCategoryId);
-            items.setSubSubCategoryId(subSubCategoryId);
-            items.setItemImage(file.getOriginalFilename());
-
-            itemRegistrationService.saveItems(items);
-
-            model.addAttribute("message", "ファイルがアップロードされました: " + file.getOriginalFilename());
-            model.addAttribute("imagePath",file.getOriginalFilename());
-
-        } catch (IOException e) {
-            model.addAttribute("message", "ファイルのアップロード中にエラーが発生しました: " + e.getMessage());
         }
+          
+        file.transferTo(filePath.toFile());
+            
+        Items items = new Items();
+            
+    	Long makerId =  Long.parseLong(itemRegistrationForm.getMakerId());
+    	Long purchase =  Long.parseLong(itemRegistrationForm.getPurchase());
+    	Long listPrice =  Long.parseLong(itemRegistrationForm.getListPrice());
+    	Long categoryId =  Long.parseLong(itemRegistrationForm.getCategoryId());
+    	Long subCategoryId =  Long.parseLong(itemRegistrationForm.getSubCategoryId());
+    	Long subSubCategoryId =  Long.parseLong(itemRegistrationForm.getSubSubCategoryId());
+            
+            
+        items.setItemName(itemRegistrationForm.getItemName());
+        items.setItemBody(itemRegistrationForm.getItemBody());
+        items.setMakerId(makerId);
+        items.setPurchase(purchase);
+        items.setListPrice(listPrice);
+        items.setCategoryId(categoryId);
+        items.setSubCategoryId(subCategoryId);
+        items.setSubSubCategoryId(subSubCategoryId);
+        items.setItemImage(file.getOriginalFilename());
+
+        itemRegistrationService.saveItems(items);
+
+        model.addAttribute("imagePath",file.getOriginalFilename());
 
         return "/registration/item_registration"; 
         

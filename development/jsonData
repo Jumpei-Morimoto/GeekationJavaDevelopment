@@ -1,0 +1,10 @@
+{
+  "id": 17,
+  "itemName": "test2",
+  "itemBody": "test1",
+  "purchase": 1000,
+  "listPrice": 1000000000,
+  "category": "冷蔵庫・洗濯機・掃除機",
+  "subCategory": "冷蔵庫・冷凍庫",
+  "subSubCategory": "冷蔵庫"
+}

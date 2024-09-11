@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>管理者一覧</title>
+</head>
+<body>
+<div class="adminContents">	
+  <table border="1">
+	<tr>
+      <th>管理者ID</th>
+      <th>管理者名</th>
+	</tr>	
+	<tr th:each="users : ${itemIdList}" th:object="${users}">
+	  <td th:text="*{item_id}"></td>
+    </tr>
+</div>    
+</body>
+</html>
