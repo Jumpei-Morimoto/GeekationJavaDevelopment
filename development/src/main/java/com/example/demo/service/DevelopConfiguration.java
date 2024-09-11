@@ -42,7 +42,7 @@ public class DevelopConfiguration implements WebMvcConfigurer{
                 .logoutSuccessUrl("/")
               ).authorizeHttpRequests(authz -> authz
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers("/").permitAll()
+                .requestMatchers("/","/API","/API2").permitAll()
                 .requestMatchers("/item/{id}/delete","/maker/{id}/delete","/user/{id}/delete,/registration/maker_registration","/registration/administrator_registration","/registration/maker_registration","/edit/user_edit/{id}/edit","/edit/maker_edit/{id}/edit").hasRole("ADMIN")
                 .anyRequest().authenticated()
               );

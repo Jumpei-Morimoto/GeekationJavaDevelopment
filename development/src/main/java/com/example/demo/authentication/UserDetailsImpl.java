@@ -26,12 +26,7 @@ private final UsersRepository repository;
 		if (user == null) {
 				throw(new UsernameNotFoundException("not found"));
 		}
-		
-
-		/*return User.builder()
-				.username(user.getEmail())
-				.password(user.getPassword())
-				.build();*/
+	
 		return new CustomUserDetails(user);
 	}
 

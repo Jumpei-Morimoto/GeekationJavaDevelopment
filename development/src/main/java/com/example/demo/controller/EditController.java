@@ -304,7 +304,7 @@ public class EditController {
 			}
 				
 				@PostMapping("/item/update/{id}")	
-				public String itemUpdate2(@Validated @ModelAttribute ItemRegistrationForm itemUpdate, @RequestParam("imageFile") MultipartFile imageFile,BindingResult result, Model model ) {
+				public String itemUpdate2(@Validated @ModelAttribute ItemRegistrationForm itemUpdate, @RequestParam("imageFile") MultipartFile imageFile,BindingResult result, Model model )throws IOException {
 					
 					if (result.hasErrors()) {
 						List<String> errorList = new ArrayList<String>();
@@ -319,27 +319,19 @@ public class EditController {
 					
 					
 					if (!imageFile.isEmpty()) {
-				        try {
-				           
 				            String uploadDir = "src/main/resources/static/img/";
 				            String fileName = imageFile.getOriginalFilename();
 				            Path filePath = Paths.get(uploadDir + fileName);
 				            itemUpdate.setItemImage(fileName);
 				         
 				            Files.write(filePath, imageFile.getBytes());
-				           
-				        }			       
-				        catch (IOException e) {
-				            e.printStackTrace();
-				            return "redirect:/error";
-				        }
-				        }else {
-				        	Optional<Items> existingItemOptional = itemsRepository.findById(itemUpdate.getId());
-				        	Items existingItem = existingItemOptional.get();
-				            itemUpdate.setItemImage(existingItem.getItemImage());
-				        }
-					
-					
+				         }else{
+				        	Optional<Items> ItemList = itemsRepository.findById(itemUpdate.getId());
+				        	if(ItemList.isPresent()) {
+				        		Items Item = ItemList.get();
+				                itemUpdate.setItemImage(Item.getItemImage());
+				            }
+				         }
 					
 					editService.itemUpdate(itemUpdate);
 					return String.format("redirect:/detailList/item_detail/%d", itemUpdate.getId());
