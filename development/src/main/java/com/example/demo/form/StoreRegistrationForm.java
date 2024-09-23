@@ -9,7 +9,7 @@ public class StoreRegistrationForm implements Serializable{
 	
 	private Long id;
 
-	@NotBlank
+	@NotBlank(message = "空白は許可されていません")
 	private String storeName;
 	
 	@NotBlank

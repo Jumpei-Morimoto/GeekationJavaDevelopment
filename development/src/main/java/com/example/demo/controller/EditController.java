@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,7 +36,6 @@ import com.example.demo.form.ItemRegistrationForm;
 import com.example.demo.form.MakerRegistrationForm;
 import com.example.demo.form.MakerUpdateForm;
 import com.example.demo.form.StoreRegistrationForm;
-import com.example.demo.form.StoreUpdateForm;
 import com.example.demo.repository.ItemsRepository;
 import com.example.demo.service.AdminListService;
 import com.example.demo.service.AdministratorRegistrationService;
@@ -112,15 +110,15 @@ public class EditController {
 		usersUpdate3.setRoleType(roleID3);
 		usersUpdate3.setPhone(users3.getPhone());
 		usersUpdate3.setPassword(users3.getPassword());
-		model.addAttribute("usersUpdate", usersUpdate3);
+		model.addAttribute("administratorRegistrationForm", usersUpdate3);
 		
 		return "edit/user_edit";
 		
 	}
 
 	
-	@PostMapping("/users/update/{id}")	
-	public String update2(@Validated @ModelAttribute AdministratorRegistrationForm usersUpdate3, BindingResult result, Model model ) {
+	@PostMapping("/users/update")	
+	public String update2(@Validated @ModelAttribute AdministratorRegistrationForm administratorRegistrationForm, BindingResult result, Model model ) {
 		
 		if (result.hasErrors()) {
 			List<String> errorList = new ArrayList<String>();
@@ -128,14 +126,23 @@ public class EditController {
 			for (ObjectError error : result.getAllErrors()) {
 			errorList.add(error.getDefaultMessage());
 			}
+			List<Store> storeList2 = selectboxService.searchAll();
+	        model.addAttribute("storeList2", storeList2);
+	        
+	        List<Positions> positionsList2 = selectboxService.searchAll2();
+	        model.addAttribute("positionsList2", positionsList2);
+	        
+	        List<Roles> rolesList2 = selectboxService.searchAll3();
+	        model.addAttribute("rolesList2", rolesList2);
+			model.addAttribute("administratorRegistrationForm",administratorRegistrationForm);
 			model.addAttribute("validationError",errorList);
 			
-			return   String.format("redirect:/edit/user_edit/%d/edit",usersUpdate3.getId());
+			return "edit/user_edit" ; /*String.format("redirect:/edit/user_edit/%d/edit",usersUpdate3.getId());*/
 		}
 		
 		
-		editService.update3(usersUpdate3);
-		return String.format("redirect:/detailList/users_detail/%d", usersUpdate3.getId());
+		editService.update3(administratorRegistrationForm);
+		return String.format("redirect:/detailList/users_detail/%d", administratorRegistrationForm.getId());
 	}
 
 	@GetMapping("/user/{id}/delete")
@@ -161,15 +168,15 @@ public class EditController {
 		makerUpdate.setCreatedAt(makerCreatedAt);
 		makerUpdate.setUpdatedAt(makerUpdatedAt);
 		
-		model.addAttribute("makerUpdate", makerUpdate);
+		model.addAttribute("makerUpdateForm", makerUpdate);
 		
 		
 		return "edit/maker_edit";
 		
 	}
 		
-		@PostMapping("/maker/update/{id}")	
-		public String makerUpdate2(@Validated @ModelAttribute MakerUpdateForm makerUpdate4, BindingResult result, Model model ) {
+		@PostMapping("/maker/update")	
+		public String makerUpdate2(@Validated @ModelAttribute MakerUpdateForm makerUpdateForm , BindingResult result, Model model ) {
 			
 			if (result.hasErrors()) {
 				List<String> errorList = new ArrayList<String>();
@@ -178,11 +185,12 @@ public class EditController {
 				errorList.add(error.getDefaultMessage());
 				}
 				model.addAttribute("validationError",errorList);
+				model.addAttribute("makerUpdateForm", makerUpdateForm);
 				
-				return  String.format("redirect:/edit/maker_edit/%d/edit",makerUpdate4.getId());
+				return  "edit/maker_edit";
 			}
-			editService.makerUpdate3(makerUpdate4);
-			return String.format("redirect:/detailList/maker_detail/%d", makerUpdate4.getId());
+			editService.makerUpdate3(makerUpdateForm);
+			return String.format("redirect:/detailList/maker_detail/%d", makerUpdateForm.getId());
 		}
 
 		@GetMapping("/maker/{id}/delete")
@@ -212,28 +220,33 @@ public class EditController {
 			storeUpdate.setCreatedAt(storeCreatedAt);
 			storeUpdate.setUpdatedAt(storeUpdatedAt);
 			
-			model.addAttribute("storeUpdate", storeUpdate);
+			model.addAttribute("storeRegistrationForm", storeUpdate);
 			
 			
 			return "edit/store_edit";
 			
 		}
 			
-			@PostMapping("/store/update/{id}")	
-			public String storeUpdate2(@Validated @ModelAttribute StoreUpdateForm storeUpdate4, BindingResult result, Model model ) {
+			@PostMapping("/store/update")	
+			public String storeUpdate2(@Validated @ModelAttribute StoreRegistrationForm storeRegistrationForm, BindingResult errorResult, Model model ) {
 				
-				if (result.hasErrors()) {
+				if (errorResult.hasErrors()) {
 					List<String> errorList = new ArrayList<String>();
 					
-					for (ObjectError error : result.getAllErrors()) {
+					for (ObjectError error : errorResult.getAllErrors()) {
 					errorList.add(error.getDefaultMessage());
 					}
-					model.addAttribute("validationError",errorList);
+					errorResult.getAllErrors().forEach(error -> {
+			            System.out.println("Error: " + error.getDefaultMessage());
+			        });
 					
-					return  String.format("redirect:/edit/store_edit/%d/edit",storeUpdate4.getId());
+					model.addAttribute("storeRegistrationForm",storeRegistrationForm);
+					
+					model.addAttribute("validationError",errorList);
+					return "edit/store_edit";
 				}
-				editService.storeUpdate3(storeUpdate4);
-				return String.format("redirect:/detailList/store_detail/%d", storeUpdate4.getId());
+				editService.storeUpdate3(storeRegistrationForm);
+				return String.format("redirect:/detailList/store_detail/%d", storeRegistrationForm.getId());
 			}
 
 			@GetMapping("/store/{id}/delete")
@@ -292,7 +305,7 @@ public class EditController {
 		        model.addAttribute("makerList", makerList);
 		        /*ここまでセレクト引用*/
 				
-				model.addAttribute("itemUpdate", itemUpdate);
+				model.addAttribute("itemRegistrationForm", itemUpdate);
 				
 				Inventory inventory = inventoryListService.findById(id);
 				   
@@ -304,17 +317,43 @@ public class EditController {
 			}
 				
 				@PostMapping("/item/update/{id}")	
-				public String itemUpdate2(@Validated @ModelAttribute ItemRegistrationForm itemUpdate, @RequestParam("imageFile") MultipartFile imageFile,BindingResult result, Model model )throws IOException {
+				public String itemUpdate2(@Validated @ModelAttribute ItemRegistrationForm itemRegistrationForm ,BindingResult result, @RequestParam("imageFile") MultipartFile imageFile, Model model )throws IOException {
+					
+				        if (imageFile.isEmpty()) {
+				        	
+				        	List<Category> categoryList = selectboxService.searchAll4();
+					        model.addAttribute("categoryList", categoryList);
+					        
+					        List<Sub_Category> sub_CategoryList = selectboxService.searchAll5();
+					        model.addAttribute("subCategoryList", sub_CategoryList);
+					        
+					        List<Sub_SubCategory> sub_SubCategoryList = selectboxService.searchAll6();
+					        model.addAttribute("subSubCategoryList", sub_SubCategoryList);
+					        
+					        List<Maker> makerList = selectboxService.searchAll7();
+					        model.addAttribute("makerList", makerList);
+					        
+				            model.addAttribute("message", "画像を選択してください");
+				            return  "/edit/item_edit";
+				        }
 					
 					if (result.hasErrors()) {
-						List<String> errorList = new ArrayList<String>();
 						
-						for (ObjectError error : result.getAllErrors()) {
-						errorList.add(error.getDefaultMessage());
-						}
-						model.addAttribute("validationError",errorList);
+						 List<Category> categoryList = selectboxService.searchAll4();
+					        model.addAttribute("categoryList", categoryList);
+					        
+					        List<Sub_Category> sub_CategoryList = selectboxService.searchAll5();
+					        model.addAttribute("subCategoryList", sub_CategoryList);
+					        
+					        List<Sub_SubCategory> sub_SubCategoryList = selectboxService.searchAll6();
+					        model.addAttribute("subSubCategoryList", sub_SubCategoryList);
+					        
+					        List<Maker> makerList = selectboxService.searchAll7();
+					        model.addAttribute("makerList", makerList);
 						
-						return  String.format("redirect:/edit/item_edit/%d/edit",itemUpdate.getId());
+						model.addAttribute("itemRegistrationForm",itemRegistrationForm);
+						
+						return  "/edit/item_edit";
 					}
 					
 					
@@ -322,19 +361,19 @@ public class EditController {
 				            String uploadDir = "src/main/resources/static/img/";
 				            String fileName = imageFile.getOriginalFilename();
 				            Path filePath = Paths.get(uploadDir + fileName);
-				            itemUpdate.setItemImage(fileName);
+				            itemRegistrationForm.setItemImage(fileName);
 				         
 				            Files.write(filePath, imageFile.getBytes());
-				         }else{
-				        	Optional<Items> ItemList = itemsRepository.findById(itemUpdate.getId());
+				         }/*else{
+				        	Optional<Items> ItemList = itemsRepository.findById(itemRegistrationForm.getId());
 				        	if(ItemList.isPresent()) {
 				        		Items Item = ItemList.get();
-				                itemUpdate.setItemImage(Item.getItemImage());
+				        		itemRegistrationForm.setItemImage(Item.getItemImage());
 				            }
-				         }
+				         }*/
 					
-					editService.itemUpdate(itemUpdate);
-					return String.format("redirect:/detailList/item_detail/%d", itemUpdate.getId());
+					editService.itemUpdate(itemRegistrationForm);
+					return String.format("redirect:/detailList/item_detail/%d", itemRegistrationForm.getId());
 				}
 				
 

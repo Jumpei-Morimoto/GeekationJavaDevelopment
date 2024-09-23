@@ -19,6 +19,7 @@ import com.example.demo.entity.Sub_Category_reference;
 import com.example.demo.entity.Sub_SubCategoryReference;
 import com.example.demo.entity.Users;
 import com.example.demo.entity.Users_reference;
+import com.example.demo.repository.UsersRepository;
 import com.example.demo.service.AdminListService;
 import com.example.demo.service.CategoryArrayServiceImpl;
 import com.example.demo.service.CategoryListServiceImpl;
@@ -28,6 +29,7 @@ import com.example.demo.service.StoreListServiceImpl;
 import com.example.demo.service.SubCategoryArrayServiceImpl;
 import com.example.demo.service.SubSubCategoryArrayServiceImpl;
 import com.example.demo.service.UsersReferenceService;
+import com.example.demo.service.UsersService;
 
 @Controller
 public class LinkController {
@@ -37,6 +39,9 @@ public class LinkController {
 	
 	@Autowired
 	  private UsersReferenceService usersReferenceService;
+	
+	@Autowired
+	  private UsersService usersService;
 	
 	@Autowired
 	  private OrdersReferenceService ordersReferenceService;
@@ -59,7 +64,8 @@ public class LinkController {
 	@Autowired
 	  private SubSubCategoryArrayServiceImpl subSubCategoryArrayService;
 	
-	
+	@Autowired
+	private UsersRepository usersRepository;
 	
 	
 	
@@ -74,8 +80,18 @@ public class LinkController {
 	/*管理者詳細リンク*/
 	@GetMapping("/detailList/users_detail/{id}")
     public String usersDetail(@PathVariable Long id, Model model) {
-		Users_reference users2 = usersReferenceService.findById(id);
-	    model.addAttribute("userData", users2);
+		try {
+		Users_reference users2= usersReferenceService.findById(id);
+		model.addAttribute("userData", users2);
+		}catch(Exception e) {
+		Long storeId = Long.valueOf(1);
+        Users user = usersService.findById(id);
+        user.setStoreName(storeId);
+        usersRepository.save(user);
+        Users_reference users3 = usersReferenceService.findById(id);
+        model.addAttribute("userData", users3);
+		} 
+	   
 		return "/detailList/users_detail";
 	}
     /*メーカー一覧リンク*/

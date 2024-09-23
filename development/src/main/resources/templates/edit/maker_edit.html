@@ -6,17 +6,15 @@
 <title>メーカー編集</title>
 </head>
 <body>
-<div th:if="${validationError}" th:each="error : ${validationError}">
-    <label class="text-danger" th:text="${error}"></label>
-</div> 
 <div class="makerEditContents">    
 <h1>メーカー編集</h1>	
-<form th:action="@{/maker/update/{id}(id=*{id})}" th:object="${makerUpdate}" th:method="post">
+<form th:action="@{/maker/update}" th:object="${makerUpdateForm}" th:method="post">
   <table  border="1">
       <tr>  
         <th>メーカー名</th>
         <td>
 			<input type="text" th:field="*{makerName}">
+			<span th:if="${#fields.hasErrors('makerName')}" th:errors="*{makerName}" style="color: red"></span>
         </td>
       </tr>
   </table>

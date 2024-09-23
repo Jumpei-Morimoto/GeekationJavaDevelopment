@@ -6,25 +6,23 @@
 <title>店舗編集</title>
 </head>
 <body>
-	<div th:if="${validationError}" th:each="error : ${validationError}">
-      <label class="text-danger" th:text="${error}"></label>
-    </div> 
 <div class="userEditContents">    
 <h1>店舗編集</h1>	
-<form th:action="@{/store/update/{id}(id=*{id})}" th:object="${storeUpdate}" th:method="post">
-	<input type="hidden" th:field="*{id}" />
+<form th:action="@{/store/update}" th:object="${storeRegistrationForm}" th:method="post">
   <table  border="1">
 	   <input type="hidden" th:field="*{id}" />
 	  <tr>
         <th>店舗名</th>
         <td>
-			<input type="text" th:field="*{storeName}">
+            <input type="text" th:field="*{storeName}">
+            <span th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}" style="color: red"></span>
         </td>
       </tr>
       <tr>
         <th>住所</th>
         <td>
 			<input type="text" th:field="*{address}">
+			<span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color: red"></span>
 		</td>
       </tr>
   </table>

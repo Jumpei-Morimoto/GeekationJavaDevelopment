@@ -42,9 +42,10 @@ public class ItemRegistrationForm implements Serializable{
 		
     private String updatedAt;
     
-   
+    
 	private String itemImage;
 	
-	private String price;
+	
+	private Long price;
 	
 }

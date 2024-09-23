@@ -20,7 +20,7 @@ import com.example.demo.form.AdministratorRegistrationForm;
 import com.example.demo.form.ItemOrderForm;
 import com.example.demo.form.ItemRegistrationForm;
 import com.example.demo.form.MakerUpdateForm;
-import com.example.demo.form.StoreUpdateForm;
+import com.example.demo.form.StoreRegistrationForm;
 import com.example.demo.repository.InventoryRepository;
 import com.example.demo.repository.ItemsRepository;
 import com.example.demo.repository.MakerRepository;
@@ -128,13 +128,13 @@ public class EditService {
 				return storeRepository2.findById(id).get();
 				}
 			
-			public void storeUpdate3(StoreUpdateForm storeUpdate3) {
+			public void storeUpdate3(StoreRegistrationForm storeUpdate) {
 				
-				Store store4 = storeFindById(storeUpdate3.getId());
+				Store store4 = storeFindById(storeUpdate.getId());
 				
 				
-			     store4.setId(storeUpdate3.getId());
-			     store4.setStoreName(storeUpdate3.getStoreName());
+			     store4.setId(storeUpdate.getId());
+			     store4.setStoreName(storeUpdate.getStoreName());
 			     store4.setUpdatedAt(new Date());
 				 storeRepository2.save(store4);
 				
@@ -188,17 +188,17 @@ public class EditService {
 			       
 				  Optional<Inventory> inventory = inventoryRepository.findByItemIdAndStoreId(itemUpdate.getId(), userInfo.getStoreName());
 				  if(inventory.isPresent()) {
-				  Long price =  Long.parseLong(itemUpdate.getPrice());
+				  /*Long price =  Long.parseLong(itemUpdate.getPrice());*/
 				  Inventory inventoryPrice; 
 				  inventoryPrice =  inventory.get();
-				  inventoryPrice.setPrice(price);
+				  inventoryPrice.setPrice(itemUpdate.getPrice());
 				  inventoryRepository.save(inventoryPrice);
 				  }else {
 					  ItemOrderForm itemOrderForm = new ItemOrderForm();
 					  int intValue = 0;
 					  Long longValue = (long) intValue;
 					  String itemId=String.valueOf(itemUpdate.getId());
-					  Long price =  Long.parseLong(itemUpdate.getPrice());
+					  /*Long price =  Long.parseLong(itemUpdate.getPrice());*/
 					  
 					  itemOrderForm.setTotal(longValue);
 					  itemOrderForm.setItem_id(itemId);
@@ -206,7 +206,7 @@ public class EditService {
 				      itemOrderForm.setStore_id(userInfo.getStoreName());
 				      itemOrderForm.setPurchase(itemUpdate.getPurchase());
 				      itemOrderForm.setOrdering_quantity("0");
-				      itemOrderForm.setPrice(price);
+				      itemOrderForm.setPrice(itemUpdate.getPrice());
 				      
 				      inventoryRegistrationService.saveInventory(itemOrderForm);
 				  }

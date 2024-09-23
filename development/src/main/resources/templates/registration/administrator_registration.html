@@ -14,7 +14,7 @@
 			<th>所属店舗名</th>
 			<td>
 				<select name="storeName">
-                      <option value="00"></option>
+                      <option value=""></option>
                       <option th:each="store : ${storeList}" th:value="${store.id}" th:text="${store.storeName}"></option>
                 </select>
                 <span th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}" style="color: red"></span>
@@ -45,7 +45,7 @@
             <th>役職</th>
             <td>
 				<select name="positionsType">
-                      <option value="00"></option>
+                      <option value=""></option>
                       <option th:each="positions : ${positionsList}" th:value="${positions.id}" th:text="${positions.positionsName}"></option>
                 </select>
                  <span th:if="${#fields.hasErrors('positionsType')}" th:errors="*{positionsType}" style="color: red"></span>
@@ -55,7 +55,7 @@
             <th>権限</th>
             <td>
 				<select name="roleType">
-                      <option value="00"></option>
+                      <option value=""></option>
                       <option th:each="roles : ${rolesList}" th:value="${roles.id}" th:text="${roles.role}"></option>
                 </select>
                  <span th:if="${#fields.hasErrors('roleType')}" th:errors="*{roleType}" style="color: red"></span>

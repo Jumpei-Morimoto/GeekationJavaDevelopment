@@ -11,23 +11,27 @@
 </div> 
 <div class="makerEditContents">
 <h1>商品情報編集</h1>	
-<div><img th:src="@{|/img/*{itemUpdate.itemImage}|}"></div>
-<form th:action="@{/item/update/{id}(id=*{id})}" th:object="${itemUpdate}" th:method="post" enctype="multipart/form-data">
+<div><img th:src="@{|/img/*{itemRegistrationForm.itemImage}|}"></div>
+ <p th:if="${message}" th:text="${message}"style="color: red"></p>
+<form th:action="@{/item/update/{id}(id=*{id})}" th:object="${itemRegistrationForm}" th:method="post" enctype="multipart/form-data">
   <div>
         <label for="image">画像を変更:</label>
         <input type="file" id="image" name="imageFile" />
+        <span th:if="${#fields.hasErrors('file')}" th:errors="*{file}" style="color: red"></span>
   </div>
   <table  border="1">
       <tr>  
         <th>商品名</th>
         <td>
 			<input type="text" th:field="*{itemName}">
+			<span th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}" style="color: red"></span>
         </td>
       </tr>
       <tr>  
         <th>内容</th>
         <td>
 			<input type="text" th:field="*{itemBody}">
+			<span th:if="${#fields.hasErrors('itemBody')}" th:errors="*{itemBody}" style="color: red"></span>
         </td>
       </tr>
       <tr>
@@ -58,6 +62,7 @@
           <th>店舗毎販売価格</th>
           <td>
 			  <input type="text"  th:field="*{price}">
+			  <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" style="color: red"></span>
 		  </td>
       </tr>
 		<tr>

@@ -59,11 +59,37 @@ public class ImageUploadController {
     public String uploadFile(@Valid ItemRegistrationForm itemRegistrationForm, BindingResult result, Model model) throws IOException {
         
 		if (result.hasErrors()) {
+			List<Maker> makerList = selectboxService.searchAll7();
+	        model.addAttribute("makerList", makerList);
+	        
+			List<Category> categoryList = selectboxService.searchAll4();
+	        model.addAttribute("categoryList", categoryList);
+	        
+	        List<Sub_Category> sub_CategoryList = selectboxService.searchAll5();
+	        model.addAttribute("subCategoryList", sub_CategoryList);
+	        
+	        List<Sub_SubCategory> sub_SubCategoryList = selectboxService.searchAll6();
+	        model.addAttribute("subSubCategoryList", sub_SubCategoryList);
 	        return "/registration/item_registration";
 	    }
 		
 		MultipartFile file = itemRegistrationForm.getFile();
 	    if (file.isEmpty()) {
+	        	
+	        	List<Category> categoryList = selectboxService.searchAll4();
+		        model.addAttribute("categoryList", categoryList);
+		        
+		        List<Sub_Category> sub_CategoryList = selectboxService.searchAll5();
+		        model.addAttribute("subCategoryList", sub_CategoryList);
+		        
+		        List<Sub_SubCategory> sub_SubCategoryList = selectboxService.searchAll6();
+		        model.addAttribute("subSubCategoryList", sub_SubCategoryList);
+		        
+		        List<Maker> makerList = selectboxService.searchAll7();
+		        model.addAttribute("makerList", makerList);
+		        
+	            model.addAttribute("message", "画像を選択してください");
+	     
 	        return "/registration/item_registration";
 	    }
           
@@ -101,7 +127,7 @@ public class ImageUploadController {
 
         model.addAttribute("imagePath",file.getOriginalFilename());
 
-        return "/registration/item_registration"; 
+        return "redirect:/item_list"; 
         
 	}
 	
