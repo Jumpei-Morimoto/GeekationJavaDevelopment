@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>store list</title>
+</head>
+<body>
+<div class="storeContents">
+	<h1>店舗一覧</h1>
+	<table border="1">
+	  <tr>
+		  <th>店舗ID</th>
+		  <th>店舗名</th>
+	  </tr>	
+	  <tr th:each="store : ${storelist}" th:object="${store}">
+		  <td th:text="*{id}"></td>
+	      <td><a class="storeDetailLink" th:href ="@{/detailList/store_detail/{id}(id=*{id})}"><span  th:text="*{storeName}"></span></a></td>
+      </tr>
+	</table>
+  <div class="link">
+    <a class="editLink" href="/registration/store_registration">新規作成</a>
+    <a class="back" href="/top">戻る</a>
+  </div>
+</div>
+</body>
+</html>

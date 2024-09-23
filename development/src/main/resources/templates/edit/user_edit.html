@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>管理者編集</title>
+</head>
+<body>
+<div class="usereditContents">    
+<h1>管理者編集</h1>	
+<form th:action="@{/users/update}" th:object="${administratorRegistrationForm}" th:method="post">
+	<input type="hidden" th:field="*{id}" />
+  <table  border="1">
+     <tr>
+       <th>所属店舗名</th>
+         <td>
+		   <select name="storeName">
+             <option th:each="store : ${storeList2}" th:value="${store.id}" th:text="${store.storeName}"></option>
+           </select>  
+           <span th:if="${#fields.hasErrors('storeName')}" th:errors="*{storeName}" style="color: red"></span>      
+         </td>
+      <tr>
+        <th>姓</th>
+        <td>
+			<input type="text" th:field="*{lastName}">
+			<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color: red"></span>
+        </td>
+      </tr>
+      <tr>
+        <th>名</th>
+        <td>
+			<input type="text" th:field="*{firstName}">
+			<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="color: red"></span>
+		</td>
+      </tr>
+      <tr>
+        <th>メールアドレス</th>
+        <td>
+			<input type="text" th:field="*{email}">
+			<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></span>
+		</td>
+      </tr>
+      <tr>
+        <th>役職</th>
+        <td>
+		  <select name="positionsType">
+            <option th:each="positions : ${positionsList2}" th:value="${positions.id}" th:text="${positions.positionsName}"></option>
+            <span th:if="${#fields.hasErrors('positionsType')}" th:errors="*{positionsType}" style="color: red"></span>
+          </select>
+        </td>
+      </tr> 
+        <tr>
+          <th>権限</th>
+          <td>
+		    <select name="roleType">
+              <option th:each="roles : ${rolesList2}" th:value="${roles.id}" th:text="${roles.role}"></option>
+              <span th:if="${#fields.hasErrors('roleType')}" th:errors="*{roleType}" style="color: red"></span>
+            </select>
+          </td>
+        </tr>   
+      <tr>
+        <th>電話番号</th>
+        <td>
+			<input type="text" th:field="*{phone}">
+			<span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color: red"></span>
+		</td>       
+      </tr>
+      <tr>
+		<th>パスワード</th>
+		  <td>
+			<input type="password" th:field="*{password}">
+			<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red"></span>
+		  </td>		  
+	  </tr>   
+  </table>
+  <input type="submit" value="保存">
+</form>
+  <div class="link">
+    <a class="back"  href="#" onclick="history.back(-1)" return false;>戻る</a>
+  </div>  
+</div>
+</body>
+</html>

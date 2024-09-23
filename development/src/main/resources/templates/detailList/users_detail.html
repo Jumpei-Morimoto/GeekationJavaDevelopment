@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>管理者詳細</title>
+</head>
+<body>
+<div class="detailContents">	
+  <h1>管理者詳細</h1>
+  <table th:object="${userData}" border="1">
+      <tr>
+        <td>管理者ID</td>
+        <td th:text="*{id}"></td>
+      </tr>
+      <tr>
+        <td>店舗名</td>
+        <td th:text="*{stores.storeName}"></td>
+      </tr>
+      <tr>
+        <td>姓</td>
+        <td th:text="*{lastName}"></td>
+      </tr>
+      <tr>
+        <td>名</td>
+        <td th:text="*{firstName}"></td>
+      </tr>
+      <tr>
+        <td>メールアドレス</td>
+        <td th:text="*{email}"></td>
+      </tr>
+      <tr>
+        <td>役職</td>
+        <td th:text="*{Positions.positionsName}"></td>
+      </tr>
+      <tr>
+        <td>権限</td>
+        <td th:text="*{Roles.role}"></td>
+      </tr>
+      <tr>
+        <td>電話番号</td>
+        <td th:text="*{phone}"></td>
+      </tr>
+      <tr>
+        <td>パスワード</td>
+        <td th:text="*{password}"></td>
+      </tr>
+  </table>   
+  <div class="link">
+    <a class="editLink" th:href="@{/edit/user_edit/{id}/edit(id=*{id})}">編集</a>
+    <a class="deleteLink" th:href="@{/user/{id}/delete(id=*{id})}">削除</a>
+    <a class="back" href="/admin_list">戻る</a>
+  </div>
+</div>
+</body>
+</html>

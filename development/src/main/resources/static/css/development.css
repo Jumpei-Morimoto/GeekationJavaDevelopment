@@ -1,0 +1,138 @@
+@charset "UTF-8";
+/*　login.html */
+.login_top{
+	text-align: center;
+	margin-top: 15rem;
+	margin-bottom: 5rem;
+}
+
+.login_list{
+	text-align: center;
+}
+
+.login_form{
+	color:black;
+	margin:2rem;
+	position: relative;
+	height: 50px;
+	
+}
+
+.login_form input{
+	border-radius: 10px;
+	color:black;
+	width:300px;
+	height: 3rem;
+	
+}
+
+.login_form p{
+	background-color: white;
+	position:absolute;
+	top: -0.5rem;
+    left: 50rem;
+    
+}
+/*　login.html */
+/*　top.html */
+.top_list{
+	font-size: 2rem;
+}
+.top_list div{
+	margin: 2rem;
+}
+.top_list a{
+	margin: 4rem;
+	text-decoration:none;
+	color:black;
+}
+/*　top.html */
+/* admin_list*/
+.adminContents{
+	margin:4rem;
+}
+.userDetailLink{
+	text-decoration: none;
+	color:black;
+}
+
+/* detail*/
+.link{
+	display:flex;
+	flex-direction: column;	
+	text-decoration: none;
+	color:black;
+	margin-top:1rem;
+}
+.link a{
+	display:inline-block;
+	width:6rem;
+	text-decoration: none;
+	color:black;
+	margin:0.5rem;
+	font-size:1.5rem;
+}
+/* user_detail*/
+.detailContents{
+	margin:4rem;
+}
+
+/* maker_list*/
+.makerContents{
+	margin:4rem;
+}
+
+.makerEditContents{
+	margin:4rem;
+}
+.makerDetailLink{
+	text-decoration: none;
+	color:black;
+}
+/* category_list*/
+.categoryContents{
+	margin:4rem;
+}
+
+.categoryDetailLink{
+	text-decoration: none;
+	color:black;
+}
+
+/* store_list*/
+.storeContents{
+	margin:4rem;
+}
+.userEditContents{
+	margin:4rem;
+}
+
+.storeDetailLink{
+	text-decoration: none;
+	color:black;
+}
+/* category_detail*/
+.subCategoryDetailLink{
+	text-decoration: none;
+	color:black;
+}
+/*ページネーション*/
+.page li{
+  list-style:none;
+}
+/*商品検索*/
+.search{
+	display:flex;	
+}
+
+.search form{
+	display:inline-block;
+}
+
+.search div{
+	margin:2rem;
+}
+
+.itemContents{
+	margin:4rem;
+}

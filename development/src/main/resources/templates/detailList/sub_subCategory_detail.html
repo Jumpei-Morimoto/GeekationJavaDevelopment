@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html　xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>小カテゴリ詳細</title>
+</head>
+<body>
+	<div class="detailContents">
+<h1>小カテゴリ詳細</h1>
+<table  border="1">
+      <tr>
+		<td>小カテゴリID</td>
+        <td>小カテゴリ名</td>
+        <td>商品ID</td>
+        <td>商品名</td>
+      </tr>
+      <tr th:each="itemsReference : ${subSubCategoryDate}" th:object="${itemsReference}"> 
+		<td th:text="*{itemSubSubCategories.id}"></td>
+		<td th:text="*{itemSubSubCategories.subSubCategory}"></td>
+		<td th:text="*{id}"></td>		      
+        <td th:text="*{itemName}"></td>              
+      </tr>   
+  </table>   
+  <div class="link">
+        <a class="back"  href="#" onclick="history.back(-1)" return false;>戻る</a>
+    </div>
+ </div>
+
+</body>
+</html>

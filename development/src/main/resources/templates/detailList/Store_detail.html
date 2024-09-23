@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html　xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/development.css}" rel="stylesheet">
+<title>商品詳細</title>
+</head>
+<body>
+<div class="detailContents">	
+  <h1>店舗詳細</h1>
+  <table th:object="${storeData}" border="1">
+      <tr>
+        <td>店舗ID</td>
+        <td th:text="*{id}"></td>
+      </tr>
+      <tr>
+        <td>店舗名</td>
+        <td th:text="*{storeName}"></td>
+      </tr>
+      <tr>
+        <td>住所</td>
+        <td th:text="*{address}"></td>
+      </tr>
+  </table>   
+  <div class="link">
+    <a class="editLink" th:href="@{/edit/store_edit/{id}/edit(id=*{id})}">編集</a>
+    <a class="deleteLink" th:href="@{/store/{id}/delete(id=*{id})}">削除</a>
+    <a class="back" href="/store_list">戻る</a>
+  </div>
+</div>
+</body>
+</html>
